@@ -1,0 +1,58 @@
+
+
+
+<!DOCTYPE html>
+    
+    <html>
+    
+        <head>
+    
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
+
+            <title>freshworks</title>	
+
+        </head>	
+<style>
+body {
+  background-color: lightpink;
+}
+</style>
+    
+        <body>
+
+            <div class = "container">
+                <h1 style = "text-align: center" id = "name"></h1>
+                <hr>
+<h3 style="color:black"font-family:verdana;>Capital</h3> <h2 style="color:blue;"id = "capital"></h2>
+             <h3 style="color:black"font-family:verdana;>Region</h3><h2 style="color:blue;" id = "region"></h2>
+                <a href = "freshworks.html"> Go Back</a>
+            </div>
+
+            <script type = "text/javascript">
+                document.addEventListener("DOMContentLoaded", function(event) { 
+                    var q = getUrlVars()  
+                    q = q["alpha2Code"];
+                    var uri = "https://restcountries.eu/rest/v2/alpha/" + q;
+                    fetch(uri)
+                    .then(response => {
+                        results = response.json().then(response1 => {
+                            document.getElementById("name").innerHTML = response1.name;
+                            document.getElementById("capital").innerHTML = response1.capital;
+                            document.getElementById("region").innerHTML = response1.region
+                        })
+                    })
+                });   
+                
+                function getUrlVars() {
+                    var arr = {};
+                    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                    arr[key] = value;
+                    });
+                    return arr;
+                }
+            </script>
+        </body>	
+    
+    </html>	
+            

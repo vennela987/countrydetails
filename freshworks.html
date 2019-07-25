@@ -1,0 +1,102 @@
+
+
+<!DOCTYPE html>
+    
+    <html>
+    
+        <head>
+
+    <h3 style:text-align:"center">                                         FRESHWORKS                                            </h3>
+ 
+            <!-- Responsive Meta Tag -->
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
+
+            <title>Freshworks</title>	
+ 
+        </head>	
+    
+        <body>
+            <form>
+                <input type = "text" name = "country_name" id = "country_name" placeholder="Enter any country name" required/>
+                <button type = "button" onclick = "searchCountry()" id = "search-btn">Search</button>
+            </form>  
+
+            <div id = "container">
+            </div>
+        </body>	
+        <script type = "text/javascript">
+            function searchCountry() {
+                var country_field = document.getElementById("country_name");
+                var country_name, search_results;
+                if(country_field.value == "") {
+                    alert("Please enter a country");
+                } 
+                else {
+                    country_name = country_field.value;
+                    var uri = "https://restcountries.eu/rest/v2/name/" + country_name;
+                    var rr = fetch(uri)
+                    .then(response => {
+                        search_results = response.json().then(response1 => {
+                            var Content = "<div class = \"card-container\">";
+                            for(var i = 0; i < response1.length; i++) {
+                                Content += "<div class = \"card\">"; 
+                                Content += "<p>";
+                                Content += response1[i].name;
+                                Content += "<hr>";
+                                Content += "<img src = \" " + "https://www.countryflags.io/" + response1[i].alpha2Code + "/flat/64.png" + " \" class = \"flag\">";
+                                Content += "</p> <br>";
+                                Content += "<a href = \"country.html?alpha2Code=" + response1[i].alpha2Code + " \">View Details</a>";
+                                Content += "</div>";    
+                            }
+                            Content += "</div>";
+                            document.getElementById("container").innerHTML = Content;
+                        })
+                        
+                    })
+                    
+                }
+            }
+        </script>
+    </html>	
+
+    <style type = "text/css"> 
+body {
+  background-color: lightblue;
+}
+
+        #container {
+            width : 700px; 
+            margin: auto;
+        } 
+        .card {
+            width: 300px;
+            box-shadow: 3px 3px 50px ccc;
+            margin: 30px auto;;
+            text-align: center;
+        }
+        .flag {
+            display: block;
+            margin: auto;
+            width: 100px;
+        }
+        form {
+            text-align: center;
+        }
+        input {
+            width : 230px;
+            margin : auto;
+            height : 20px;
+            border: 1px solid #ccc;;
+            border-radius: 5px;
+        }
+        #search-btn {
+            color: white;
+            background:chartreuse;
+            border: none;
+            height: 32px;
+            padding: 0 10px;
+            border-radius: 5px;
+        }
+    </style>
+    
